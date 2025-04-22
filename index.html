@@ -1,136 +1,35 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-  <meta charset="UTF-8" />
-  <title>小电助手 V9 · 节气整合</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fa; }
-    header { background: #0074D9; color: white; padding: 1rem; text-align: center; font-size: 1.3rem; }
-    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; background: #e6f3ff; padding: 0.75rem; }
-    nav button {
-      padding: 0.5rem 1rem; border-radius: 6px; border: none;
-      background: white; color: #0074D9; font-weight: bold; cursor: pointer;
-      border: 1px solid #0074D9;
-    }
-    section {
-      display: none; padding: 1.5rem; max-width: 720px;
-      margin: auto; background: white; border-radius: 1rem;
-      margin-top: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    section.active { display: block; }
-    .chat-box { display: flex; flex-direction: column; gap: 1rem; max-height: 60vh; overflow-y: auto; }
-    .chat-message { max-width: 80%; padding: 0.75rem 1rem; border-radius: 12px; line-height: 1.5; }
-    .user { align-self: flex-end; background: #0074D9; color: white; }
-    .bot { align-self: flex-start; background: #e0f0ff; }
-    .input-bar { display: flex; margin-top: 1rem; }
-    .input-bar input {
-      flex: 1; padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc;
-    }
-    .input-bar button {
-      margin-left: 0.5rem; background: #0074D9; color: white;
-      border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;
-    }
-    .role-toggle { text-align: center; margin: 0.5rem 0; }
-    .role-toggle button {
-      padding: 0.4rem 0.8rem; margin: 0 0.25rem; font-weight: bold;
-      border-radius: 6px; border: none; cursor: pointer;
-    }
-    h2 { color: #0074D9; }
-    ul { padding-left: 1.2rem; }
-    li { margin-bottom: 0.5rem; }
-  </style>
+
+<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8" />
+<title>小电助手 V9 · Vercel 接口版</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+body{font-family:sans-serif;margin:0;background:#f5f7fa}header{background:#0074D9;color:#fff;padding:1rem;text-align:center}nav{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;background:#e6f3ff;padding:0.75rem}nav button{padding:0.5rem 1rem;border-radius:6px;border:1px solid #0074D9;background:#fff;color:#0074D9;font-weight:bold;cursor:pointer}section{display:none;padding:1.5rem;max-width:720px;margin:auto;background:#fff;border-radius:1rem;margin-top:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.05)}section.active{display:block}h2{color:#0074D9}ul{padding-left:1.2rem}li{margin-bottom:0.5rem}
+</style>
 </head>
 <body>
-<header>小电助手 V9 · 节气整合版</header>
+<header>小电助手 V9 · 接入中转服务</header>
 <nav>
-  <button onclick="showTab('chat')">AI 聊天</button>
-  <button onclick="showTab('faq')">常见问题</button>
-  <button onclick="showTab('notice')">校内通知</button>
-  <button onclick="showTab('contact')">联系我们</button>
   <button onclick="showTab('weather')">天气</button>
   <button onclick="showTab('hot')">热点</button>
   <button onclick="showTab('jieqi')">节气</button>
 </nav>
-<section id="chat" class="active">
-  <div class="role-toggle">
-    <button style="background:#0074D9;color:white" onclick="setRole('xiaodian')">小电</button>
-    <button style="background:#ff66b2;color:white" onclick="setRole('akong')">阿空</button>
-  </div>
-  <div class="chat-box" id="chatBox">
-    <div class="chat-message bot">你好，我是小电，有什么可以帮你的吗？</div>
-  </div>
-  <div class="input-bar">
-    <input id="userInput" placeholder="请输入你的问题..." />
-    <button onclick="sendMessage()">发送</button>
-  </div>
-</section>
-<section id="faq"><h2>常见问题</h2><ul><li>辅导员工作时间：周一至周五 8:00–11:30，13:30–16:30</li><li>请假流程：上课前30分钟向任课教师和辅导员请假，经同意后方可不去上课</li></ul></section>
-<section id="notice"><h2>📢 校内通知</h2><ul><li><strong>【2025-04-22】</strong> 关于“五一假期学生离校报备”的通知</li><li><strong>【2025-04-20】</strong> 本科课程期中考试安排说明</li><li><strong>【2025-04-17】</strong> 吉林大学心理健康教育月系列讲座通知</li><li><strong>【2025-04-15】</strong> 教学楼开放时间调整</li></ul><p style="font-size: 0.9rem; color: #777;">如需更新，请手动修改此页面中的通知内容。</p></section>
-<section id="contact"><h2>联系我们</h2><ul><li>学工办：0431-85168413</li><li>教务办：0431-85168415</li><li>研究生办：0431-85168416</li></ul></section>
-<section id="weather"><h2>天气预报（长春）</h2><p id="weatherData">加载中...</p></section>
+<section id="weather"><h2>天气预报</h2><p id="weatherData">加载中...</p></section>
 <section id="hot"><h2>热点资讯</h2><ul id="hotList"><li>加载中...</li></ul></section>
-<section id="jieqi"><h2>📅 二十四节气（年度节气表）</h2><div id="jieqiData">加载中...</div></section>
+<section id="jieqi"><h2>📅 二十四节气</h2><div id="jieqiData">加载中...</div></section>
 <script>
-let role = 'xiaodian';
-const prompts = {
-  xiaodian: `你是电子科学与工程学院“小电”AI助手，语气理性亲切。1. 辅导员工作时间为周一至周五上午8:00-11:30，下午1:30-4:30。2. 请假前至少提前30分钟向任课教师和辅导员请假。3. 如用户说“心情不好”，建议联系辅导员或关注“吉林大学心理中心”。`,
-  akong: `你是电子科学与工程学院“阿空”AI助手，语气温柔体贴。若用户提及情绪困扰，请温柔鼓励其与辅导员沟通，或咨询心理中心。`
-};
 function showTab(id) {
   document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
-function setRole(r) {
-  role = r;
-  const msg = document.createElement("div");
-  msg.className = "chat-message bot";
-  msg.textContent = role === 'xiaodian' ? "切换为小电，有什么问题问我吧！" : "切换为阿空，我在呢~";
-  document.getElementById("chatBox").appendChild(msg);
-}
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const text = input.value.trim();
-  if (!text) return;
-  const box = document.getElementById("chatBox");
-  box.innerHTML += `<div class="chat-message user">${text}</div>`;
-  const bot = document.createElement("div");
-  bot.className = "chat-message bot";
-  bot.textContent = "思考中...";
-  box.appendChild(bot);
-  box.scrollTop = box.scrollHeight;
-  input.value = "";
-  try {
-    const res = await fetch("https://api.deepseek.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer sk-f9b2fada759840ae833aeee0d4fc0cbb"
-      },
-      body: JSON.stringify({
-        model: "deepseek-chat",
-        messages: [
-          { role: "system", content: prompts[role] },
-          { role: "user", content: text }
-        ]
-      })
-    });
-    const data = await res.json();
-    bot.textContent = data.choices?.[0]?.message?.content || "抱歉，小电暂时无法回答~";
-    box.scrollTop = box.scrollHeight;
-  } catch (e) {
-    bot.textContent = "出错了：" + e.message;
-  }
-}
 
-fetch("https://api.tianapi.com/tianqi/index?key=c652bd1f2d34516b23d1e55e9cd98634&city=长春")
+fetch("https://xiaodian-proxy.vercel.app/api/weather")
 .then(res => res.json()).then(data => {
   const w = data.result;
   document.getElementById("weatherData").innerText = `${w.area}，${w.weather}，${w.low}~${w.high}℃，${w.wind}，${w.windsc}级`;
 }).catch(err => {
   document.getElementById("weatherData").innerText = "天气加载失败：" + err.message;
 });
-fetch("https://api.tianapi.com/hot/index?key=c652bd1f2d34516b23d1e55e9cd98634")
+fetch("https://xiaodian-proxy.vercel.app/api/hot")
 .then(res => res.json()).then(data => {
   const list = data.result?.list || [];
   const ul = document.getElementById("hotList");
@@ -143,16 +42,12 @@ fetch("https://api.tianapi.com/hot/index?key=c652bd1f2d34516b23d1e55e9cd98634")
 }).catch(err => {
   document.getElementById("hotList").innerHTML = "<li>热点加载失败：" + err.message + "</li>";
 });
-
 async function loadAllJieqi() {
-  const key = "c652bd1f2d34516b23d1e55e9cd98634";
   const container = document.getElementById("jieqiData");
   container.innerHTML = "加载中...";
-
   try {
-    const response = await fetch("https://apis.tianapi.com/jieqilist/index?key=" + key);
+    const response = await fetch("https://xiaodian-proxy.vercel.app/api/jieqi");
     const data = await response.json();
-
     if (data.code === 200 && data.result && Array.isArray(data.result.list)) {
       const list = data.result.list;
       let html = "<ul>";
@@ -162,13 +57,12 @@ async function loadAllJieqi() {
       html += "</ul>";
       container.innerHTML = html;
     } else {
-      container.innerHTML = "无法获取节气列表，请检查 API Key 或接口状态。";
+      container.innerHTML = "无法获取节气列表，请检查接口状态。";
     }
   } catch (err) {
     container.innerHTML = "节气加载失败：" + err.message;
   }
 }
 window.onload = loadAllJieqi;
-</script>
-</body>
-</html>
+
+</script></body></html>
